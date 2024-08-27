@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "database-extractor"
+dynamic = ["version"]
+dependencies = [
+    "blackboxprotobuf~=1.0.1",
+    "openpyxl~=3.1.5",
+    "func_timeout~=4.3.5",
+    "tabulate~=0.9.0"
+]
+requires-python = ">=3.8"
+authors = [
+    {name = "consithe1"}
+]
+readme = {file = "README.md", content-type = "text/markdown"}
+license = {file = "LICENSE"}
+keywords = ["database", "extraction"]
+
+
+[project.urls]
+Repository = "https://github.com/consithe1/database_utils"

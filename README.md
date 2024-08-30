@@ -110,6 +110,24 @@ A database can be exported as a JSON or as an XML at the moment. A short exemple
 }
 ```
 
+## Example
+
+```python
+from database_converter.converters.sqlite3.db import SQLite3DatabaseFileConverter
+import database_converter.writers.json as json
+import database_converter.writers.xml as xml
+
+if __name__ == '__main__':
+    # Convert the content of the database into a python object
+    extractor = SQLite3DatabaseFileConverter('DB1.db')
+    content = extractor.convert()
+
+    # Save as a XML
+    xml.write('extraction.xml', content)
+    # Save as a JSON
+    json.write('extraction.json', content)
+```
+
 ## Features to implement
 
 - extractors: sqlite3 WAL

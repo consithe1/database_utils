@@ -7,6 +7,12 @@ import dataabse_converter.utils.constants as constants
 
 
 def decode_protobuf(value: bytes) -> tuple[bool, any]:
+    """
+    Function to interpret bytes as a protobuf if possible.
+    :param value: bytes to decode
+    :return: a tuple with a boolean representing if the conversion worked or not, and the value converted if it was a
+    success else return the value given as a parameter
+    """
     is_protobuf: bool = True
     try:
         logger.debug('Trying to convert bytes to protobuf and decoding it')

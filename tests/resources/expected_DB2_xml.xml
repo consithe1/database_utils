@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<database name="resources/DB2.db">
+    <table name="Tab1">
+        <row>
+            <column type="str" key="userId" value="JZDT" />
+            <column type="str" key="username" value="John" />
+        </row>
+        <row>
+            <column type="str" key="userId" value="C2V6" />
+            <column type="str" key="username" value="Charles" />
+        </row>
+        <row>
+            <column type="str" key="userId" value="R7UN" />
+            <column type="str" key="username" value="Richard" />
+        </row>
+        <row>
+            <column type="str" key="userId" value="XB4F" />
+            <column type="str" key="username" value="Xavier" />
+        </row>
+    </table>
+    <table name="Tab2">
+        <row>
+            <column type="str" key="extKey" value="27FwAPH4QapLXF5fhDcs7" />
+            <column type="str" key="convContent - 1" value="Aw/StKU4rGc7uQy9L1O3r0kWNoCi55HRRHwU21MCVpQ=" />
+            <column type="str" key="convContent - 2" value="4Et6zpGgHRbzvMzQLB7MIQ==" />
+            <column type="int" key="convContent - 3" value="1" />
+            <column type="str" key="convContent - 6 - 1" value="https://cf-st.sc-cdn.net/f/27FwAPH4QapLXF5fhDcs7" />
+            <column type="str" key="convContent - 6 - 4" value="1:3268ee78-5bea-53d2-b12c-d362df90dffb:93917:0:0" />
+            <column type="str" key="convContent - 6 - 7 - 1" value="uc" />
+            <column type="str" key="convContent - 6 - 7 - 2" value="4" />
+            <column type="str" key="convContent - 6 - 15 - 1" value="1:3268ee78-5bea-53d2-b12c-d362df90dffb:93917:0:0" />
+            <column type="str" key="convContent - 6 - 15 - 2" value="Chat" />
+            <column type="str" key="convContent - 6 - 15 - 3" value="Image" />
+            <column type="str" key="convContent - 7 - 1 - 2 - 2" value="27FwAPH4QapLXF5fhDcs7" />
+            <column type="str" key="convContent - 7 - 1 - 2 - 6" value="" />
+            <column type="int" key="convContent - 7 - 1 - 2 - 9" value="2" />
+            <column type="int" key="convContent - 7 - 1 - 2 - 10" value="4" />
+            <column type="int" key="convContent - 7 - 1 - 2 - 12" value="1" />
+            <column type="str" key="convContent - 8" value="27FwAPH4QapLXF5fhDcs7" />
+            <column type="int" key="convContent - 10" value="1683893510461" />
+            <column type="int" key="convContent - 13" value="2" />
+            <column type="int" key="read" value="1" />
+            <column type="int" key="col4" value="0" />
+        </row>
+    </table>
+</database>

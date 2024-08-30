@@ -7,7 +7,7 @@ For the moment, this package can only extract the content of SQLite3 databases.
 
 ## Export format
 
-A database can be exported as a JSON or as a XML at the moment. A short exemple of both implementation is given below.
+A database can be exported as a JSON or as an XML at the moment. A short exemple of both implementation is given below.
 
 ### XML
 

@@ -1,14 +1,26 @@
 import concurrent.futures
 
-from database_converter.extractors.db import *
+from database_converter.converters.db import *
 from database_converter.utils.utils import dict_factory
 
 
-class SQLite3DatabaseFileExtractor(DatabaseFileExtractor):
+class SQLite3DatabaseFileConverter(DatabaseFileConverter):
+    """
+    Class used to convert a SQLite3 database to a python dictionary.
+    """
     def __init__(self, database_file: str, n_threads: int = 8):
-        super(SQLite3DatabaseFileExtractor, self).__init__(database_file, n_threads)
+        """
+        Function to instantiate a SQLite3 database converter
+        :param database_file: the path to a SQLite3 database file
+        :param n_threads: the number of threads to use
+        """
+        super(SQLite3DatabaseFileConverter, self).__init__(database_file, n_threads)
 
-    def extract(self):
+    def convert(self) -> dict[str, any]:
+        """
+        Function to convert the content of a SQLite3 database into a python object using multithreading.
+        :return: a representation of the database as a python dictionary
+        """
         tables_content: dict[str, any] = {}
         with sqlite3.connect(self.db_file) as conn:
             # return the query items as dictionaries
@@ -22,7 +34,7 @@ class SQLite3DatabaseFileExtractor(DatabaseFileExtractor):
             # get the table names as a list
             db_table_names: list[str] = [r['name'] for r in db_tables_dict]
 
-            # extract the tables using multiprocessing
+            # extract the tables using multithreading (1 table = 1 thread)
             with concurrent.futures.ThreadPoolExecutor(max_workers=self.n_threads) as executor:
                 futures = {
                     executor.submit(

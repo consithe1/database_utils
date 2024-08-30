@@ -2,13 +2,13 @@ import unittest
 import hashlib
 
 
-from database_converter.extractors.sqlite3.db import SQLite3DatabaseFileExtractor
+from database_converter.converters.sqlite3.db import SQLite3DatabaseFileConverter
 import database_converter.writers.xml as xml
 
 
 class TestsWriterXML(unittest.TestCase):
     def test_write(self):
-        decoded_database = SQLite3DatabaseFileExtractor('resources/DB2.db').extract()
+        decoded_database = SQLite3DatabaseFileConverter('resources/DB2.db').convert()
         xml.write('output/xml_result.xml', decoded_database)
 
         # calculate the hash of the files

@@ -1,14 +1,14 @@
 import unittest
 
 
-from database_converter.extractors.sqlite3.db import SQLite3DatabaseFileExtractor
+from database_converter.converters.sqlite3.db import SQLite3DatabaseFileConverter
 
 
 class TestSQLite3DatabaseFileExtractor(unittest.TestCase):
 
     def test_extract(self):
-        extractor = SQLite3DatabaseFileExtractor("resources/DB1.db")
-        db_content = extractor.extract()
+        extractor = SQLite3DatabaseFileConverter("resources/DB1.db")
+        db_content = extractor.convert()
 
         expected_db_content = {
             "resources/DB1.db": {

@@ -2,4 +2,3 @@ blackboxprotobuf~=1.0.1
 openpyxl~=3.1.5
 func_timeout~=4.3.5
 tabulate~=0.9.0
-setuptools~=40.8.0

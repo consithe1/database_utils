@@ -5,6 +5,12 @@ from database_converter.utils.utils import remove_control_chars
 
 
 def write(dest_file: str, content: dict[str, any]):
+    """
+    Function to write a python dictionary as an XML file
+    :param dest_file: the destination file
+    :param content: a python dictionary to be written
+    :return:
+    """
     root = ET.Element('database')
 
     if len(content.keys()) != 1:
@@ -34,4 +40,3 @@ def write(dest_file: str, content: dict[str, any]):
         tree = ET.ElementTree(root)
         ET.indent(tree, space="    ", level=0)
         tree.write(dest_file, encoding='utf-8', xml_declaration=True)
-

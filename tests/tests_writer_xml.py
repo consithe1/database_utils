@@ -2,8 +2,8 @@ import unittest
 import hashlib
 
 
-from dataabse_converter.extractors.sqlite3.db import SQLite3DatabaseFileExtractor
-import dataabse_converter.writers.xml as xml
+from database_converter.extractors.sqlite3.db import SQLite3DatabaseFileExtractor
+import database_converter.writers.xml as xml
 
 
 class TestsWriterXML(unittest.TestCase):

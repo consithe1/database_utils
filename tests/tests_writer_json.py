@@ -2,7 +2,7 @@ import hashlib
 import unittest
 
 
-import dataabse_converter.writers.json as json
+import database_converter.writers.json as json
 
 
 class TestsWriterJson(unittest.TestCase):

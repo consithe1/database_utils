@@ -3,7 +3,7 @@ from logging.handlers import RotatingFileHandler
 import sys
 
 
-import dataabse_converter.utils.constants as constants
+import database_converter.utils.constants as constants
 
 
 log_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')

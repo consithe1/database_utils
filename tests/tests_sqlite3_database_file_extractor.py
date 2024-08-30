@@ -1,7 +1,7 @@
 import unittest
 
 
-from dataabse_converter.extractors.sqlite3.db import SQLite3DatabaseFileExtractor
+from database_converter.extractors.sqlite3.db import SQLite3DatabaseFileExtractor
 
 
 class TestSQLite3DatabaseFileExtractor(unittest.TestCase):

@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 
 
-from dataabse_converter.utils.utils import remove_control_chars
+from database_converter.utils.utils import remove_control_chars
 
 
 def write(dest_file: str, content: dict[str, any]):

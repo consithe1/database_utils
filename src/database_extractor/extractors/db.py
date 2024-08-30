@@ -1,77 +1,8 @@
 import sqlite3
-import json
-from func_timeout import func_timeout, FunctionTimedOut
-import blackboxprotobuf as bk
-
 
 from database_extractor.utils.utils import dict_factory, convert_multidimensional_to_single_dimensional
-from database_extractor.utils.logger import logger, logger_error
-import database_extractor.utils.constants as constants
-
-
-def decode_protobuf(value: bytes) -> tuple[bool, any]:
-    is_protobuf: bool = True
-    try:
-        logger.debug('Trying to convert bytes to protobuf and decoding it')
-        decoded_protobuf = \
-            func_timeout(timeout=10, func=bk.decode_message, kwargs={'buf': value})[0]
-        value = decode_protobuf_content(decoded_protobuf)
-    except FunctionTimedOut:
-        logger_error.error("Protobuf decoding timed out")
-        is_protobuf = False
-    except Exception as e:
-        logger_error.error(f'Failed to decode protobuf because of this error: {e}')
-        is_protobuf = False
-
-    return is_protobuf, value
-
-
-def decode_protobuf_content(protobuf: dict[str, any]) -> dict[str, any]:
-    """
-    Decode recursively a nested dict. Try to decode bytes array, etc.
-    :param protobuf: a dictionary
-    :return: a decoded dictionary
-    """
-    for key, value in protobuf.items():
-        if isinstance(value, dict):
-            if value == constants.CHAT_EQUIVALENT:
-                protobuf[key] = "Chat"
-            else:
-                protobuf[key] = decode_protobuf_content(value)
-        elif isinstance(value, bytes):
-            try:
-                protobuf[key] = value.decode("utf-8").replace('\t', '').replace('\n', '')
-            except UnicodeDecodeError:
-                # error occurred while decoding in utf-8
-                logger.debug('Failed to convert bytes to string')
-                protobuf[key] = value
-        elif isinstance(value, list):
-            for i in range(len(value)):
-                protobuf[key][i] = decode_protobuf_content(value[i]) if isinstance(value[i], dict) else value[
-                    i]
-        elif isinstance(value, int) or isinstance(value, float):
-            protobuf[key] = value
-        elif isinstance(value, str):
-            protobuf[key] = value.replace('\t', '').replace('\n', '')
-
-    return protobuf
-
-
-def decode_json(value: bytes) -> tuple[bool, any]:
-    """
-    Function to convert bytes to a json/dict
-    :param value: the item to decode
-    :return: a tuple, the result of the decoding and the value decoded
-    """
-    is_json: bool = True
-    try:
-        value = json.loads(value.decode('utf-8'))
-    except json.JSONDecodeError:
-        is_json = False
-    except UnicodeDecodeError:
-        is_json = False
-
-    return is_json, value
+from database_extractor.decoders.json import decode_json
+from database_extractor.decoders.protobuf import decode_protobuf
 
 
 def process_row(row: dict[str, any]) -> dict[str, any]:

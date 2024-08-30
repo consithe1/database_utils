@@ -32,4 +32,3 @@ Specific extractor used for SQLite3 databases.
 ## Features to implement
 
 - extractors: sqlite3 WAL
-- writers: excel, csv, json

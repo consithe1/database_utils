@@ -2,8 +2,8 @@ from func_timeout import func_timeout, FunctionTimedOut
 import blackboxprotobuf as bk
 
 
-from database_extractor.utils.logger import logger, logger_error
-import database_extractor.utils.constants as constants
+from dataabse_converter.utils.logger import logger, logger_error
+import dataabse_converter.utils.constants as constants
 
 
 def decode_protobuf(value: bytes) -> tuple[bool, any]:

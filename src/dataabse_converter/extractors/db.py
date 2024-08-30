@@ -1,8 +1,8 @@
 import sqlite3
 
-from database_extractor.utils.utils import dict_factory, convert_multidimensional_to_single_dimensional
-from database_extractor.decoders.json import decode_json
-from database_extractor.decoders.protobuf import decode_protobuf
+from dataabse_converter.utils.utils import dict_factory, convert_multidimensional_to_single_dimensional
+from dataabse_converter.decoders.json import decode_json
+from dataabse_converter.decoders.protobuf import decode_protobuf
 
 
 def process_row(row: dict[str, any]) -> dict[str, any]:

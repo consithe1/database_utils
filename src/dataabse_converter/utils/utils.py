@@ -4,7 +4,7 @@ import re
 import sys
 
 
-import database_extractor.utils.constants as constants
+import dataabse_converter.utils.constants as constants
 
 
 def dict_factory(cursor, row):

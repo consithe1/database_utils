@@ -1,7 +1,7 @@
 import concurrent.futures
 
-from database_extractor.extractors.db import *
-from database_extractor.utils.utils import dict_factory
+from dataabse_converter.extractors.db import *
+from dataabse_converter.utils.utils import dict_factory
 
 
 class SQLite3DatabaseFileExtractor(DatabaseFileExtractor):

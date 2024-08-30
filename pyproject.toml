@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "database-extractor"
+name = "database-converter"
 version = "0.0.2"
 dependencies = [
     "blackboxprotobuf~=1.0.1",
@@ -17,7 +17,7 @@ authors = [
 ]
 readme = {file = "README.md", content-type = "text/markdown"}
 license = {file = "LICENSE"}
-keywords = ["database", "extraction"]
+keywords = ["database", "extraction", "xml", "json", "sqlite3"]
 
 
 [project.urls]

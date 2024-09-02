@@ -5,6 +5,14 @@
 This project intends to create a python package to extract the content of a database and convert it into a python object.
 For the moment, this package can only extract the content of SQLite3 databases.
 
+In this implementation, a row is represented as a python dictionary object. 
+
+Since the goal of this package is to extract the content of a database, BLOB fields will be decoded if possible if they
+represent a protobuf or a json. In order to facilitate the data readability, nested protobuf/json objects will be converted to 
+unidimensional objects (cf. image below).
+
+![Example of nested-object conversion to unidimensional object](images/transformation.png "Nested-object to unidimensional object")
+
 ## Export format
 
 A database can be exported as a JSON or as an XML at the moment. A short exemple of both implementation is given below.

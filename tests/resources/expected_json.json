@@ -1,0 +1,64 @@
+{
+    "resources/dummy.db": {
+        "Tab1": [
+            {
+                "userId": {
+                    "value": "C2V6",
+                    "type": "str"
+                },
+                "convId": {
+                    "value": null,
+                    "type": "NoneType"
+                },
+                "sent": {
+                    "value": 0,
+                    "type": "int"
+                }
+            }
+        ],
+        "Tab2": [
+            {
+                "convId": {
+                    "value": "uaz-57",
+                    "type": "str"
+                },
+                "messageId": {
+                    "value": 1,
+                    "type": "int"
+                },
+                "extKey": {
+                    "value": "chat",
+                    "type": "str"
+                }
+            },
+            {
+                "convId": {
+                    "value": "r2d-2a",
+                    "type": "str"
+                },
+                "messageId": {
+                    "value": 3,
+                    "type": "int"
+                },
+                "extKey": {
+                    "value": "27FwAPH4QapLXF5fhDcs7",
+                    "type": "str"
+                }
+            },
+            {
+                "convId": {
+                    "value": "av7-dp",
+                    "type": "str"
+                },
+                "messageId": {
+                    "value": 5,
+                    "type": "int"
+                },
+                "extKey": {
+                    "value": "0000040f",
+                    "type": "bytes"
+                }
+            }
+        ]
+    }
+}

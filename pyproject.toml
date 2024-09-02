@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "database-converter"
-version = "0.0.4"
+version = "0.0.5"
 dependencies = [
     "blackboxprotobuf~=1.0.1",
     "openpyxl~=3.1.5",

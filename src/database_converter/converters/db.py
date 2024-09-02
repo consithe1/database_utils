@@ -3,6 +3,7 @@ import sqlite3
 from database_converter.utils.utils import dict_factory, convert_multidimensional_to_single_dimensional
 from database_converter.decoders.json import decode_json
 from database_converter.decoders.protobuf import decode_protobuf
+from database_converter.utils.logger import logger_error
 
 
 def process_row(row: dict[str, any]) -> dict[str, any]:
@@ -71,8 +72,7 @@ class DatabaseFileConverter:
             try:
                 all_rows = rows_from_table.fetchall()
             except sqlite3.OperationalError as e:
-                # TODO manage the exception
-                pass
+                logger_error.error(f'Failed to get the rows from {table_name}: {e}')
 
             # process rows
             if all_rows:

@@ -1,6 +1,9 @@
 import json
 
 
+from database_converter.utils.logger import logger_error
+
+
 def decode_json(value: str | bytes | bytearray) -> tuple[bool, any]:
     """
     Function to convert bytes to a json/dict
@@ -11,9 +14,11 @@ def decode_json(value: str | bytes | bytearray) -> tuple[bool, any]:
     decoded_value = value
     try:
         decoded_value = json.loads(value)
-    except json.JSONDecodeError:
+    except json.JSONDecodeError as e:
         is_json = False
-    except UnicodeDecodeError:
+        logger_error.error(f'Failed to decode json: {e}')
+    except UnicodeDecodeError as e:
+        logger_error.error(f'Failed to decode json: {e}')
         is_json = False
 
     return is_json, decoded_value

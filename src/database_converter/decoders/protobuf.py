@@ -46,7 +46,7 @@ def decode_protobuf_content(protobuf: dict[str, any]) -> dict[str, any]:
                 protobuf[key] = value.decode("utf-8").replace('\t', '').replace('\n', '')
             except UnicodeDecodeError:
                 # error occurred while decoding in utf-8
-                logger.debug('Failed to convert bytes to string')
+                logger_error.error('Failed to convert bytes to string')
                 protobuf[key] = value
         elif isinstance(value, list):
             for i in range(len(value)):

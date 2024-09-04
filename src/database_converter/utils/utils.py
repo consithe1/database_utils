@@ -65,3 +65,20 @@ def convert_multidimensional_to_single_dimensional(values: any, elem_key: str = 
         one_dimension_row |= {elem_key: values}
 
     return one_dimension_row
+
+
+def check_file_type(filepath: str, filetype: str) -> bool:
+    header = b''
+
+    if constants.FILE_HEADERS.get(filetype, None):
+        expected_header, header_length = constants.FILE_HEADERS.get(filetype)
+
+        try:
+            with open(filepath, 'rb') as f:
+                header = f.read(header_length)
+        except PermissionError as e:
+            print(f"Permission denied with error {e}")
+
+        return header == expected_header
+
+    return False

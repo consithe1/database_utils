@@ -4,12 +4,10 @@ build-backend = "hatchling.build"
 
 [project]
 name = "database-converter"
-version = "0.0.5"
+version = "0.0.5.1"
 dependencies = [
     "blackboxprotobuf~=1.0.1",
-    "openpyxl~=3.1.5",
-    "func_timeout~=4.3.5",
-    "tabulate~=0.9.0"
+    "func_timeout~=4.3.5"
 ]
 requires-python = ">=3.8"
 authors = [

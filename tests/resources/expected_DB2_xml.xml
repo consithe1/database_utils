@@ -32,7 +32,7 @@
             <column type="str" key="convContent - 6 - 15 - 2" value="Chat" />
             <column type="str" key="convContent - 6 - 15 - 3" value="Image" />
             <column type="str" key="convContent - 7 - 1 - 2 - 2" value="27FwAPH4QapLXF5fhDcs7" />
-            <column type="str" key="convContent - 7 - 1 - 2 - 6" value="" />
+            <column type="bytes" key="convContent - 7 - 1 - 2 - 6" value="06" />
             <column type="int" key="convContent - 7 - 1 - 2 - 9" value="2" />
             <column type="int" key="convContent - 7 - 1 - 2 - 10" value="4" />
             <column type="int" key="convContent - 7 - 1 - 2 - 12" value="1" />

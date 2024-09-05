@@ -21,6 +21,7 @@ def dict_factory(cursor, row):
 all_chars = (chr(i) for i in range(sys.maxunicode))
 categories = {'Cc', 'Cf', 'Cs', 'Co', 'Cn'}
 control_chars = ''.join(map(chr, itertools.chain(range(0x00, 0x20), range(0x7f, 0xa0))))
+control_chars_bytes = bytes(control_chars.encode('utf-8'))
 control_char_re = re.compile('[%s]' % re.escape(control_chars))
 
 

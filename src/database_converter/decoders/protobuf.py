@@ -1,9 +1,11 @@
+import re
+
 from func_timeout import func_timeout, FunctionTimedOut
 import blackboxprotobuf as bk
 
-
 from database_converter.utils.logger import logger, logger_error
 import database_converter.utils.constants as constants
+from database_converter.utils.utils import control_chars_bytes
 
 
 def decode_protobuf(value: bytes) -> tuple[bool, any]:
@@ -37,21 +39,18 @@ def decode_protobuf_content(protobuf: dict[str, any]) -> dict[str, any]:
     """
     for key, value in protobuf.items():
         if isinstance(value, dict):
-            if value == constants.CHAT_EQUIVALENT:
-                protobuf[key] = "Chat"
-            else:
-                protobuf[key] = decode_protobuf_content(value)
+            protobuf[key] = "Chat" if value == constants.CHAT_EQUIVALENT else decode_protobuf_content(value)
         elif isinstance(value, bytes):
-            try:
-                protobuf[key] = value.decode("utf-8").replace('\t', '').replace('\n', '')
-            except UnicodeDecodeError:
-                # error occurred while decoding in utf-8
-                logger_error.error('Failed to convert bytes to string')
-                protobuf[key] = value
+            if not any(byte in value for byte in control_chars_bytes):
+                try:
+                    protobuf[key] = value.decode("utf-8").replace('\t', '').replace('\n', '')
+                except UnicodeDecodeError:
+                    # error occurred while decoding in utf-8
+                    logger_error.error('Failed to convert bytes to string')
+                    protobuf[key] = value
         elif isinstance(value, list):
             for i in range(len(value)):
-                protobuf[key][i] = decode_protobuf_content(value[i]) if isinstance(value[i], dict) else value[
-                    i]
+                protobuf[key][i] = decode_protobuf_content(value[i]) if isinstance(value[i], dict) else value[i]
         elif isinstance(value, int) or isinstance(value, float):
             protobuf[key] = value
         elif isinstance(value, str):

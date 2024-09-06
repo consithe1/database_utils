@@ -27,8 +27,7 @@ def write(dest_file: str, content: dict[str, any]):
                 row_xml = ET.SubElement(table_xml, 'row')
                 for key, value in row.items():
                     col_xml = ET.SubElement(row_xml, 'column')
-                    type_col = type(value)
-                    col_xml.set('type', type_col.__name__)
+                    col_xml.set('type', type(value).__name__)
                     col_xml.set('key', key)
                     if isinstance(value, bytes):
                         # convert the bytes in a hexadecimal string

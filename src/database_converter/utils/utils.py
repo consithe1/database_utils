@@ -21,6 +21,7 @@ def dict_factory(cursor, row):
 all_chars = (chr(i) for i in range(sys.maxunicode))
 categories = {'Cc', 'Cf', 'Cs', 'Co', 'Cn'}
 control_chars = ''.join(map(chr, itertools.chain(range(0x00, 0x20), range(0x7f, 0xa0))))
+control_chars_bytes = bytes(control_chars.encode('utf-8'))
 control_char_re = re.compile('[%s]' % re.escape(control_chars))
 
 
@@ -82,3 +83,39 @@ def check_file_type(filepath: str, filetype: str) -> bool:
         return header == expected_header
 
     return False
+
+
+def conversion_for_writing(value: any) -> dict:
+    """
+    Function to convert a value into its written format. When storing a data in a structured file where bytes can't be
+    written and numbers are written as strings, this function is used.
+    :param value: the value to be converted
+    :return: the converted value
+    """
+    typ = type(value).__name__
+
+    if isinstance(value, bytes):
+        val = value.hex()
+    else:
+        val = remove_control_chars(str(value))
+    return {'value': val, 'type': typ}
+
+
+def conversion_from_reading(val: str, typ: str) -> any:
+    """
+    Function to cast properly a string element based on a given type
+    :param val: the value to be converted
+    :param typ: the real type of the value
+    :return: the casted value
+    """
+    new_val: any = val
+    if typ == 'int':
+        new_val = int(val)
+    elif typ == 'float':
+        new_val = float(val)
+    elif typ == 'bytes':
+        new_val = bytes.fromhex(val)
+    elif typ == 'NoneType':
+        new_val = None
+
+    return new_val

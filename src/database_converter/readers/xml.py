@@ -1,6 +1,9 @@
 import xml.etree.ElementTree as ET
 
 
+from database_converter.utils.utils import conversion_from_reading
+
+
 def read(source_file: str) -> dict[str, any]:
     """
     Function to read a specific XML formated file and cast it into a dictionary python object
@@ -25,17 +28,7 @@ def read(source_file: str) -> dict[str, any]:
                 col_type = col.get("type")
                 col_val = col.get("value")
 
-                # cast the value based on the type
-                if col_type == "int":
-                    col_val = int(col_val)
-                elif col_type == "float":
-                    col_val = float(col_val)
-                elif col_type == "bytes":
-                    col_val = bytes.fromhex(col_val)
-                elif col_type == "NoneType":
-                    col_val = None
-
-                row_dict[col_key] = col_val
+                row_dict[col_key] = conversion_from_reading(col_val, col_type)
 
             table_rows.append(row_dict)
         # add the table read to the database dictionary

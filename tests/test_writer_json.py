@@ -6,17 +6,6 @@ import database_converter.writers.json as json
 
 
 class TestsWriterJson(unittest.TestCase):
-    def test_create_json_from_row(self):
-        extracted_row = {"userId": "C2V6", "convId": None, "sent": 0, "extKey": b'\x00\x00\x04\x0f'}
-
-        expected_row = {
-            "userId": {"value": "C2V6", "type": "str"},
-            "convId": {"value": None, "type": "NoneType"},
-            "sent": {"value": 0, "type": "int"},
-            "extKey": {"value": "0000040f", "type": "bytes"},
-        }
-
-        self.assertEqual(expected_row, json.create_json_from_row(extracted_row))
 
     def test_write(self):
         extracted_db = {

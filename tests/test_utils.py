@@ -1,7 +1,7 @@
 import unittest
 
 
-from database_converter.utils.utils import check_file_type
+from database_converter.utils.utils import check_file_type, conversion_for_writing
 import database_converter.utils.constants as constants
 
 
@@ -11,6 +11,13 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(True, check_file_type('resources/DB1.db', constants.SQLITE3_DB))
         self.assertEqual(False, check_file_type('resources/expected_DB2_xml.xml', constants.SQLITE3_WAL))
         self.assertEqual(False, check_file_type('resources/db-wal', constants.SQLITE3_WAL))
+
+    def test_conversion_for_writing(self):
+        self.assertEqual({'type': 'int', 'value': '123'}, conversion_for_writing(123))
+        self.assertEqual({'type': 'float', 'value': '2.456'}, conversion_for_writing(2.456))
+        self.assertEqual({'type': 'str', 'value': 'test-string'}, conversion_for_writing('test-string'))
+        self.assertEqual({'type': 'bytes', 'value': '000102'}, conversion_for_writing(b'\x00\x01\x02'))
+        self.assertEqual({'type': 'NoneType', 'value': 'None'}, conversion_for_writing(None))
 
 
 if __name__ == '__main__':

@@ -1,10 +1,9 @@
-import re
-
-from func_timeout import func_timeout, FunctionTimedOut
 import blackboxprotobuf as bk
+from func_timeout import func_timeout, FunctionTimedOut
+import traceback
 
-from database_converter.utils.logger import logger, logger_error
 import database_converter.utils.constants as constants
+from database_converter.utils.logger import logger
 from database_converter.utils.utils import control_chars_bytes
 
 
@@ -21,11 +20,11 @@ def decode_protobuf(value: bytes) -> tuple[bool, any]:
         decoded_protobuf = \
             func_timeout(timeout=10, func=bk.decode_message, kwargs={'buf': value})[0]
         value = decode_protobuf_content(decoded_protobuf)
-    except FunctionTimedOut:
-        logger_error.error("Protobuf decoding timed out")
+    except FunctionTimedOut as e:
+        traceback.print_exception(e)
         is_protobuf = False
     except Exception as e:
-        logger_error.error(f'Failed to decode protobuf because of this error: {e}')
+        traceback.print_exception(e)
         is_protobuf = False
 
     return is_protobuf, value
@@ -44,9 +43,9 @@ def decode_protobuf_content(protobuf: dict[str, any]) -> dict[str, any]:
             if not any(byte in value for byte in control_chars_bytes):
                 try:
                     protobuf[key] = value.decode("utf-8").replace('\t', '').replace('\n', '')
-                except UnicodeDecodeError:
+                except UnicodeDecodeError as e:
                     # error occurred while decoding in utf-8
-                    logger_error.error('Failed to convert bytes to string')
+                    traceback.print_exception(e)
                     protobuf[key] = value
         elif isinstance(value, list):
             for i in range(len(value)):

@@ -1,9 +1,9 @@
 import sqlite3
+import traceback
 
 from database_converter.utils.utils import dict_factory, convert_multidimensional_to_single_dimensional
 from database_converter.decoders.json import decode_json
 from database_converter.decoders.protobuf import decode_protobuf
-from database_converter.utils.logger import logger_error
 
 
 def process_row(row: dict[str, any]) -> dict[str, any]:
@@ -47,23 +47,22 @@ class DatabaseFileConverter:
 
     This class should NOT be instantiated directly.
     """
-    def __init__(self, filepath: str, n_threads: int):
+    def __init__(self, n_threads: int):
         """
         Function to instantiate a database converter
-        :param filepath: the path to a database file
         :param n_threads: the max number of threads to use
         """
-        self.db_file: str = filepath
         self.n_threads: int = n_threads
 
-    def extract_rows(self, table_name) -> dict[str, any]:
+    def extract_rows(self, db_file: str, table_name) -> dict[str, any]:
         """
         Function to extract rows from a database table.
+        :param db_file: the path to the database file to convert
         :param table_name: the name of the table to extract rows from
         :return: a python dictionary representing the table and its content
         """
         table_decoded_rows = []
-        with sqlite3.connect(self.db_file) as conn:
+        with sqlite3.connect(db_file) as conn:
             # get the results of statements as a python dictionary
             conn.row_factory = dict_factory
             # get all the rows from the table
@@ -71,8 +70,8 @@ class DatabaseFileConverter:
             all_rows = []
             try:
                 all_rows = rows_from_table.fetchall()
-            except sqlite3.OperationalError as e:
-                logger_error.error(f'Failed to get the rows from {table_name}: {e}')
+            except sqlite3.OperationalError:
+                traceback.print_exc()
 
             # process rows
             if all_rows:

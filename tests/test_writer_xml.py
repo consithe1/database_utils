@@ -8,7 +8,7 @@ import database_converter.writers.xml as xml
 
 class TestsWriterXML(unittest.TestCase):
     def test_write(self):
-        decoded_database = SQLite3DatabaseFileConverter('resources/DB2.db').convert()
+        decoded_database = SQLite3DatabaseFileConverter().convert('resources/DB2.db')
         xml.write('output/xml_result.xml', decoded_database)
 
         # calculate the hash of the files

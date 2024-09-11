@@ -1,7 +1,5 @@
 import json
-
-
-from database_converter.utils.logger import logger_error
+import traceback
 
 
 def decode_json(value: str | bytes | bytearray) -> tuple[bool, any]:
@@ -15,10 +13,10 @@ def decode_json(value: str | bytes | bytearray) -> tuple[bool, any]:
     try:
         decoded_value = json.loads(value)
     except json.JSONDecodeError as e:
+        traceback.print_exception(e)
         is_json = False
-        logger_error.error(f'Failed to decode json: {e}')
     except UnicodeDecodeError as e:
-        logger_error.error(f'Failed to decode json: {e}')
+        traceback.print_exception(e)
         is_json = False
 
     return is_json, decoded_value

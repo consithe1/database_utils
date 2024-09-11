@@ -8,21 +8,20 @@ class SQLite3DatabaseFileConverter(DatabaseFileConverter):
     """
     Class used to convert a SQLite3 database to a python dictionary.
     """
-    def __init__(self, database_file: str, n_threads: int = 8):
+    def __init__(self, n_threads: int = 8):
         """
         Function to instantiate a SQLite3 database converter
-        :param database_file: the path to a SQLite3 database file
         :param n_threads: the number of threads to use
         """
-        super(SQLite3DatabaseFileConverter, self).__init__(database_file, n_threads)
+        super(SQLite3DatabaseFileConverter, self).__init__(n_threads)
 
-    def convert(self) -> dict[str, any]:
+    def convert(self, db_file: str) -> dict[str, any]:
         """
         Function to convert the content of a SQLite3 database into a python object using multithreading.
         :return: a representation of the database as a python dictionary
         """
         tables_content: dict[str, any] = {}
-        with sqlite3.connect(self.db_file) as conn:
+        with sqlite3.connect(db_file) as conn:
             # return the query items as dictionaries
             conn.row_factory = dict_factory
             # create a cursor
@@ -39,6 +38,7 @@ class SQLite3DatabaseFileConverter(DatabaseFileConverter):
                 futures = {
                     executor.submit(
                         self.extract_rows,
+                        db_file=db_file,
                         table_name=table_name
                     ): table_name for table_name in db_table_names
                 }
@@ -47,7 +47,7 @@ class SQLite3DatabaseFileConverter(DatabaseFileConverter):
                     tables_content.update(table_content)
 
         database_content = {
-            self.db_file: tables_content
+            db_file: tables_content
         }
 
         return database_content

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "database-converter"
-version = "0.0.7"
+version = "0.0.7.1"
 dependencies = [
     "blackboxprotobuf~=1.0.1",
     "func_timeout~=4.3.5"

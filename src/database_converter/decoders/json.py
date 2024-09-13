@@ -12,11 +12,9 @@ def decode_json(value: str | bytes | bytearray) -> tuple[bool, any]:
     decoded_value = value
     try:
         decoded_value = json.loads(value)
-    except json.JSONDecodeError as e:
-        traceback.print_exception(e)
+    except json.JSONDecodeError:
         is_json = False
-    except UnicodeDecodeError as e:
-        traceback.print_exception(e)
+    except UnicodeDecodeError:
         is_json = False
 
     return is_json, decoded_value

@@ -1,7 +1,7 @@
 import unittest
 
 
-from database_converter.utils.utils import check_file_type, conversion_for_writing
+from database_converter.utils.utils import *
 import database_converter.utils.constants as constants
 
 
@@ -18,6 +18,11 @@ class TestUtils(unittest.TestCase):
         self.assertEqual({'type': 'str', 'value': 'test-string'}, conversion_for_writing('test-string'))
         self.assertEqual({'type': 'bytes', 'value': '000102'}, conversion_for_writing(b'\x00\x01\x02'))
         self.assertEqual({'type': 'NoneType', 'value': 'None'}, conversion_for_writing(None))
+
+    def test_remove_control_chars_bytes(self):
+        expected = [b'1', b'test', b'^{']
+
+        self.assertEqual(expected, remove_control_chars_and_split_bytes(b'\x001\x01\x02test\x02\x00\x00^{'))
 
 
 if __name__ == '__main__':

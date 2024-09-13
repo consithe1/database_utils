@@ -25,8 +25,34 @@ control_chars_bytes = bytes(control_chars.encode('utf-8'))
 control_char_re = re.compile('[%s]' % re.escape(control_chars))
 
 
-def remove_control_chars(s):
+def remove_control_chars(s: str) -> str:
     return control_char_re.sub('', s)
+
+
+def remove_control_chars_and_split_bytes(b: bytes) -> list:
+    """Splits the bytes object by control characters and returns a list of bytes chunks."""
+    result = []
+    current_chunk = []
+
+    for byte in b:
+        if byte in control_chars_bytes:
+            # If we hit a control character and have a current chunk, store it
+            if current_chunk:
+                result.append(bytes(current_chunk))
+                current_chunk = []
+        else:
+            # Append non-control characters to the current chunk
+            current_chunk.append(byte)
+
+    # Append any remaining chunk after the loop
+    if current_chunk:
+        result.append(bytes(current_chunk))
+
+    return result
+
+
+def remove_orphans_from_bytes(item: bytes, minimal_length: int = 3) -> bytes:
+    pass
 
 
 def winapi_path(dos_path):

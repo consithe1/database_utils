@@ -20,11 +20,9 @@ def decode_protobuf(value: bytes) -> tuple[bool, any]:
         decoded_protobuf = \
             func_timeout(timeout=10, func=bk.decode_message, kwargs={'buf': value})[0]
         value = decode_protobuf_content(decoded_protobuf)
-    except FunctionTimedOut as e:
-        traceback.print_exception(e)
+    except FunctionTimedOut:
         is_protobuf = False
-    except Exception as e:
-        traceback.print_exception(e)
+    except Exception:
         is_protobuf = False
 
     return is_protobuf, value
